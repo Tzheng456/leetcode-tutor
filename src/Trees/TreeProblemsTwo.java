@@ -17,8 +17,9 @@ public class TreeProblemsTwo {
 
     public int countNodesInRange(TreeNode root, int B, int C) {
         if (root == null) return 0;
-        if (root.val >= B && root.val <= C) return 1;
-        return countNodesInRange(root.left,B,C) + countNodesInRange(root.right,B,C);
+        if (root.val < B) return countNodesInRange(root.right, B, C);
+        if (root.val > C) return countNodesInRange(root.left, B, C);
+        return 1+ countNodesInRange(root.left,B,C) + countNodesInRange(root.right,B,C);
     }
 
     public TreeNode invert(TreeNode root) {
@@ -46,5 +47,12 @@ public class TreeProblemsTwo {
         LinkedList<String> paths = new LinkedList<>();
         pathContsructor(root, paths, "");
         return paths;
+    }
+
+    public boolean findKey(TreeNode root, int k) {
+        if (root == null) return false;
+        if (root.val == k) return true;
+        else if (root.val > k) return findKey(root.left, k);
+        else return findKey(root.right, k);
     }
 }
